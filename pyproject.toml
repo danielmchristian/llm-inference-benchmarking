@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling>=1.27"]  # >=1.27 for PEP 639 SPDX license fields
+build-backend = "hatchling.build"
+
+[project]
+name = "llm-bench"
+version = "0.1.0"
+description = "LLM inference benchmarking harness: serving-engine throughput and latency vs. answer quality across quantization and batching configs."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "Daniel Morley" }]
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "pytest>=8.0",
+  "mypy>=1.14",
+  "ruff>=0.9",
+]
+
+[tool.hatch.build.targets.wheel]
+# Required because the distribution name (llm-bench) differs from the import
+# package name (llmbench), so hatchling cannot infer the package directory.
+packages = ["src/llmbench"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+  "E",   # pycodestyle errors
+  "W",   # pycodestyle warnings
+  "F",   # pyflakes
+  "I",   # isort
+  "UP",  # pyupgrade: enforce 3.11+ idioms
+  "B",   # bugbear: likely-bug patterns
+  "C4",  # comprehensions
+  "SIM", # simplify
+  "PT",  # pytest style
+  "RUF", # ruff-specific
+]
+
+[tool.mypy]
+strict = true
+python_version = "3.11"  # check against the support floor, not the dev interpreter
+# hatchling's editable installs use a MetaPathFinder import hook that mypy
+# cannot traverse, so point mypy at the source tree directly.
+mypy_path = ["src"]
+files = ["src", "tests"]
+warn_unreachable = true
+enable_error_code = ["ignore-without-code"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers --strict-config"
+xfail_strict = true
+filterwarnings = ["error"]
