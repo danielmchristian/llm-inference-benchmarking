@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Environments & secrets
+.venv/
+.env
+
+# Tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage*
+htmlcov/
+
+# Benchmark output convention (see DECISIONS.md 0011):
+#   /runs/    -> raw per-run output (large, machine-specific): ignored
+#   /results/ -> curated JSONL + manifests (reproducibility artifact): committed
+/runs/
