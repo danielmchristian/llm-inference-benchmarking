@@ -158,6 +158,45 @@ new entry that supersedes the old one.
   runs in CI would be expensive, unreproducible on shared runners, and a
   secrets risk.
 
+## 0013 — Phase 1 runtime dependencies and CLI shape
+
+- **Date:** 2026-09-29 · **Status:** accepted
+- **Decision:** Runtime deps: httpx (async client), starlette + uvicorn (the
+  stub server ships in the package as a first-class feature), numpy
+  (statistics), matplotlib (plots, imported lazily so `run` never pays its
+  startup cost). CLI is argparse with subcommands `run`, `stub`, `analyze`,
+  `envinfo`, entry point `llm-bench`.
+- **Rationale:** The stub is not a test helper — it is how anyone (including
+  reviewers) verifies the harness measures correctly, so it ships. argparse is
+  zero-dependency and boring.
+- **Rejected:** click/typer (a dependency for no capability we need),
+  splitting deps into optional extras (premature for five small wheels).
+
+## 0014 — mypy checks under a 3.12 target, not the 3.11 floor
+
+- **Date:** 2026-09-29 · **Status:** accepted (amends 0009)
+- **Decision:** `[tool.mypy] python_version = "3.12"` while
+  `requires-python = ">=3.11"` stands. Runtime 3.11 compatibility is enforced
+  by the CI test matrix, which actually executes the code on 3.11.
+- **Rationale:** numpy >= 2.5 ships PEP 695 `type` aliases in its stubs, which
+  mypy refuses to parse under a 3.11 target — any module importing numpy
+  failed typechecking.
+- **Rejected:** `Any`-typed shadow stubs or dynamic `import_module` imports
+  (defeats strict typing exactly where the math lives), pinning numpy < 2.5
+  (holds back a runtime dep for the sake of tooling).
+
+## 0015 — GPU rental provider: RunPod community cloud
+
+- **Date:** 2026-09-29 · **Status:** accepted
+- **Decision:** GPU runs rent RunPod community-cloud RTX 4090s, deployed from
+  the official `vllm/vllm-openai` image pinned by digest, all traffic over
+  SSH, nothing exposed publicly.
+- **Rationale:** Reliable 4090 availability, per-second billing, clean
+  Docker-image pods; the official vLLM image keeps the engine install out of
+  our hands entirely (one less thing a skeptic has to trust).
+- **Rejected for now:** Vast.ai (often cheaper, less consistent; the fallback
+  if RunPod pricing or availability turns bad).
+
 ---
 
 ## Open questions

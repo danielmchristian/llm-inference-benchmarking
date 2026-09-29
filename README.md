@@ -17,13 +17,14 @@ different.
 
 ## Status
 
-**Pre-alpha — Phase 0 (scaffolding).** No benchmark numbers exist yet; this
-table links to results as each phase lands.
+**Pre-alpha — Phase 1.** The harness is built and calibration-tested against
+a stub server with known timing; the first real vLLM run is next. No benchmark
+numbers exist yet; this table links to results as each phase lands.
 
 | Phase | Scope | Status |
 |------:|-------|--------|
-| 0 | Repo scaffolding, CI, decision log | in progress |
-| 1 | Load generator + manifest fingerprinting; vLLM FP16 baseline, one workload | next |
+| 0 | Repo scaffolding, CI, decision log | done |
+| 1 | Load generator + manifest fingerprinting; vLLM FP16 baseline, one workload | harness done; GPU run pending |
 | 2 | Engine comparison: vLLM vs SGLang vs a third engine, same model and hardware | planned |
 | 3 | Quantization: FP16 vs FP8 vs AWQ vs GPTQ — throughput, latency, memory | planned |
 | 4 | Quality regression: performance gains vs answer-quality cost | planned |
@@ -60,7 +61,19 @@ uv sync --locked   # create .venv and install pinned dev deps
 make check         # lint + typecheck + tests — exactly what CI runs
 ```
 
-The benchmark quickstart lands with Phase 1.
+Try the whole pipeline GPU-free against the bundled stub server (it streams
+fake tokens with configurable, known timing — which is also how the harness
+itself is calibration-tested):
+
+```sh
+uv run llm-bench stub --port 18080 --ttft-ms 120 --itl-ms 8 &
+uv run llm-bench run --base-url http://127.0.0.1:18080 \
+  --workload chat-short --concurrency 8 --num-requests 64 --repeats 3 --out runs
+uv run llm-bench analyze runs/<RUN_ID> --plot runs/<RUN_ID>/latency.png
+```
+
+See `docs/metrics.md` for what each number means and how it is measured, and
+`docs/phase1-runbook.md` for the real-GPU procedure.
 
 ## License
 
