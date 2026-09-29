@@ -1,0 +1,72 @@
+How do I set up a virtual environment in Python, and why would I want one instead of installing packages globally?
+Can you explain the difference between TCP and UDP in plain terms, with an example of when each is the right choice?
+I need to write a polite email declining a job offer I already verbally accepted. How should I phrase it without burning bridges?
+What is the best way to learn touch typing as an adult who has been hunt-and-pecking for twenty years?
+Explain how compound interest works and why starting to save at 25 instead of 35 makes such a big difference.
+My sourdough starter smells like acetone after a week. What went wrong and can it be saved?
+Write a short toast for my best friend's wedding. She loves hiking and terrible puns, and we met in a college chemistry lab.
+What are the tradeoffs between renting and buying a home in a city where prices are rising faster than wages?
+How does garbage collection work in Java, and what causes a memory leak even when a garbage collector is running?
+I have four days in Kyoto in November. Can you sketch an itinerary that balances temples, food, and some downtime?
+Why does my JavaScript fetch call return a pending promise when I log it, and how do I actually get the JSON out?
+Explain the Monty Hall problem and why switching doors doubles your chances of winning.
+What should I look for when buying a used car from a private seller, and which red flags mean I should walk away?
+Help me draft a performance review self-assessment. I shipped two big projects this year but struggled with delegation.
+How do vaccines train the immune system, and why do some require boosters while others last a lifetime?
+My cat has started scratching the couch after we moved apartments. What are humane ways to redirect this behavior?
+Can you explain what a database index is and why adding one can make writes slower while making reads faster?
+I want to start running but every previous attempt ended with shin splints. How should I build up safely this time?
+What is the difference between a Roth IRA and a traditional IRA, and how do I decide which one fits my situation?
+Write a haiku about the feeling of finally fixing a bug at two in the morning.
+How does DNS resolution work when I type a website address into my browser?
+I'm hosting Thanksgiving for twelve people for the first time. Can you help me plan a cooking timeline for the two days before?
+Explain why the sky is blue during the day but turns red and orange at sunset.
+My Git history is a mess of "fix" and "wip" commits. How do I clean it up before opening a pull request, and is that safe?
+What are some strategies for staying focused while working from home with two young kids in the house?
+How do noise-cancelling headphones actually cancel noise? What are the limits of the technology?
+I need a 500-word cover letter for a data analyst role. I'm switching from teaching high school math. What should I emphasize?
+Explain the difference between machine learning and traditional programming to someone who has never written code.
+What is the safest way to defrost chicken if I forgot to take it out of the freezer this morning and dinner is in five hours?
+Why do airlines overbook flights, and what are my rights if I get bumped from one?
+Can you walk me through how to read a nutrition label and which numbers actually matter for weight loss?
+My Python script works on my laptop but fails on the server with a ModuleNotFoundError. What are the usual causes?
+How should I structure a 20-minute conference talk so the audience remembers the main point?
+What is inflation, who decides interest rates, and how does raising rates actually slow price increases?
+I want to build a raised garden bed on a concrete patio. What depth do I need for tomatoes and what should I use for drainage?
+Explain what Docker containers are and how they differ from virtual machines.
+How do I negotiate a salary offer that is 10 percent below what I expected without losing the offer entirely?
+What causes muscle soreness two days after a workout, and does stretching before exercise actually prevent it?
+Write a limerick about a programmer who refuses to write documentation.
+My landlord wants to raise rent 15 percent. What research should I do before negotiating, and what leverage do renters have?
+How does public key cryptography let two strangers communicate securely without ever exchanging a secret in advance?
+I'm learning Spanish with apps but freeze in real conversations. What practice methods bridge that gap?
+What is the difference between baking soda and baking powder, and what happens if I swap one for the other in cookies?
+Explain how a wind turbine converts wind into electricity and why they always seem to have three blades.
+Can you review this plan: I want to pay off a 6 percent car loan before investing beyond my employer 401k match. Sensible?
+How do I get red wine out of a wool rug? It happened an hour ago and I've only blotted it so far.
+What are the pros and cons of microservices versus a monolith for a five-person startup engineering team?
+My teenager wants to drop piano after eight years of lessons. Should I insist they continue or let it go?
+Explain the placebo effect and why clinical trials need double-blinding to produce trustworthy results.
+How do I write a will without a lawyer, and in what situations is skipping the lawyer a genuinely bad idea?
+What is the time complexity of quicksort in the best, average, and worst cases, and what triggers the worst case?
+I have 2000 dollars and two weeks off in March. Where in Europe can I travel comfortably on that budget from New York?
+Why does hot water sometimes freeze faster than cold water, and is that effect even real?
+Help me write a short bio for a conference speaker page. I'm a nurse practitioner who moved into health tech product management.
+What is the difference between a stock and a bond, and why do advisors say to hold more bonds as you age?
+How can I tell whether a news article is trustworthy? Give me a practical checklist I can apply in five minutes.
+My WiFi is fast near the router but unusable two rooms away. What are my options short of rewiring the house?
+Explain recursion with a simple example and describe what happens when a recursive function has no base case.
+What questions should I ask in the final round interview to figure out if a company's culture is actually healthy?
+How do I keep basil alive indoors through the winter? Mine always gets leggy and drops leaves by January.
+What is the electoral college, why does it exist, and how can a candidate win the presidency while losing the popular vote?
+Write a product description for a handmade ceramic mug that keeps coffee warm longer. Around 100 words, warm tone.
+Why do we dream, and is there any solid science behind the idea that dreams help consolidate memory?
+How should I split rent fairly with a roommate when the two bedrooms are very different sizes and one has a private bathroom?
+What is the difference between HTTP and HTTPS, and how does the padlock in my browser actually protect me?
+I want to read more books but fall asleep after two pages every night. What habits help people read consistently?
+Explain how noise in training data leads to overfitting and what regularization does about it, for a stats undergrad.
+My 401k offers a target date fund and an S&P 500 index fund. How would I think about choosing between them at age 30?
+How do I sharpen kitchen knives at home with a whetstone without ruining the edge? I've never done it before.
+What actually happens to recycling after the truck picks it up, and which common items contaminate the whole bin?
+Can you help me outline a two-week onboarding plan for a junior developer joining my backend team of four?
+Why do some countries drive on the left side of the road, and has any country ever switched sides?
