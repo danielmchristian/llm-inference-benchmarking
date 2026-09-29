@@ -11,11 +11,21 @@ requires-python = ">=3.11"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 authors = [{ name = "Daniel Morley" }]
-dependencies = []
+dependencies = [
+  "httpx>=0.27",       # async client driving OpenAI-compatible endpoints
+  "matplotlib>=3.8",   # plots are generated from results data, never hand-made
+  "numpy>=1.26",       # percentile/statistics math
+  "starlette>=0.37",   # local OpenAI-compatible stub server
+  "uvicorn>=0.30",     # ASGI runner for the stub
+]
+
+[project.scripts]
+llm-bench = "llmbench.cli:main"
 
 [dependency-groups]
 dev = [
   "pytest>=8.0",
+  "pytest-asyncio>=0.24",
   "mypy>=1.14",
   "ruff>=0.9",
 ]
@@ -44,7 +54,10 @@ select = [
 
 [tool.mypy]
 strict = true
-python_version = "3.11"  # check against the support floor, not the dev interpreter
+# 3.12, not the 3.11 support floor: numpy >= 2.5 ships PEP 695 `type` aliases
+# in its stubs, which mypy refuses to parse under a 3.11 target. Runtime
+# compatibility with 3.11 is enforced by the CI test matrix instead.
+python_version = "3.12"
 # hatchling's editable installs use a MetaPathFinder import hook that mypy
 # cannot traverse, so point mypy at the source tree directly.
 mypy_path = ["src"]
@@ -54,6 +67,7 @@ enable_error_code = ["ignore-without-code"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+asyncio_mode = "auto"
 addopts = "-ra --strict-markers --strict-config"
 xfail_strict = true
 filterwarnings = ["error"]
