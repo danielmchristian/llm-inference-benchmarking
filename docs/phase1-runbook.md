@@ -11,20 +11,28 @@ the pod. All traffic — the OpenAI endpoint, file transfer — goes over SSH.
 ## 1. Create the pod
 
 - RunPod → Community Cloud → **RTX 4090** (24 GB), 1x GPU.
-- Container image: `vllm/vllm-openai:latest`.
-- **Pin the image immediately.** `latest` is a moving tag; the manifest must
-  record the digest actually used. Once the pod is up:
+- Container image: **resolve the digest first, pin at creation.** `latest` is
+  a moving tag; handing RunPod a digest-pinned reference means the pod provably
+  runs the exact image the manifest records — nothing to read back after the
+  fact. From your workstation (no docker daemon or image pull needed):
 
   ```bash
-  # on the pod, if docker is available:
-  docker inspect --format='{{index .RepoDigests 0}}' vllm/vllm-openai:latest
+  curl -s "https://hub.docker.com/v2/repositories/vllm/vllm-openai/tags/latest" \
+    | python3 -c "import json,sys; print(json.load(sys.stdin)['digest'])"
   ```
 
-  On RunPod the container itself usually cannot inspect its own image — in
-  that case read the digest from the RunPod UI (pod details show the resolved
-  image digest), or from your workstation:
-  `docker pull vllm/vllm-openai:latest && docker inspect --format='{{index .RepoDigests 0}}' vllm/vllm-openai:latest`.
-  Write it down; it goes into `--image-digest` below.
+  Note the digest and the release tag that shares it (check the repo's tags
+  page — e.g. on 2026-10-23, `latest` == `v0.32.0`). Set the pod's container
+  image to:
+
+  ```
+  vllm/vllm-openai@sha256:<DIGEST>
+  ```
+
+  The same digest goes into `--image-digest` below, and the release tag into
+  `--image`. If RunPod's image field rejects the `@sha256:` form, fall back to
+  the release tag (`vllm/vllm-openai:v0.32.0`) and confirm the resolved digest
+  in the pod details page before trusting the run.
 - **Override the container start command** (RunPod pod config → "Container
   Start Command") with `bash -c "sleep infinity"`. The image's default
   entrypoint starts an API server immediately with no model configured; the
@@ -122,7 +130,7 @@ llm-bench run \
   --model-revision <HF_COMMIT_HASH_FROM_STEP_2> \
   --engine-name vllm \
   --quantization fp16 \
-  --image vllm/vllm-openai:latest \
+  --image vllm/vllm-openai:<RELEASE_TAG> \
   --image-digest <DIGEST_FROM_STEP_1> \
   --serving-arg=--max-model-len \
   --serving-arg=4096 \
