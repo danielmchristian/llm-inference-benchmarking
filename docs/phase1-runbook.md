@@ -51,7 +51,8 @@ first: `apt-get update && apt-get install -y tmux`; plain multiple SSH
 sessions also work), and launch the server:
 
 ```bash
-vllm serve meta-llama/Llama-3.1-8B-Instruct --max-model-len 4096
+vllm serve meta-llama/Llama-3.1-8B-Instruct \
+  --max-model-len 4096 --no-enable-prefix-caching
 ```
 
 Phase-1 policy: **engine defaults except the flags listed here**, so results
@@ -61,6 +62,12 @@ non-default flag and its justification:
 | Flag | Value | Why it is set |
 |---|---|---|
 | `--max-model-len` | `4096` | Llama 3.1's native 128k context makes vLLM budget KV-cache for 128k-token sequences; on a 24 GB card that either aborts at startup or strangles batch capacity. The chat-short workload needs well under 4096 tokens, so 4096 bounds KV-cache allocation without constraining the workload. |
+| `--no-enable-prefix-caching` | (off) | vLLM ≥ 0.32 turns automatic prefix caching on by default. The chat-short corpus is 72 prompts cycled over 256 requests, so most requests repeat an earlier prompt verbatim — with caching on, TTFT measures the prefix cache instead of prefill, and rep 1 warms the cache for reps 2–3, deflating cross-rep variance. Disabled so every request pays real prefill (see DECISIONS 0016). |
+
+Note on dtype: vLLM's default `dtype auto` loads Llama 3.1 in
+`torch.bfloat16` (check the `dtype=` field in the engine-config log line).
+The manifest therefore records `--quantization bf16` — what actually runs —
+not "fp16".
 
 Everything else (port 8000, dtype auto → bf16, scheduling, batching) is left
 at engine defaults, and `serving_args` in the manifest records exactly the
@@ -129,11 +136,12 @@ llm-bench run \
   --out runs \
   --model-revision <HF_COMMIT_HASH_FROM_STEP_2> \
   --engine-name vllm \
-  --quantization fp16 \
+  --quantization bf16 \
   --image vllm/vllm-openai:<RELEASE_TAG> \
   --image-digest <DIGEST_FROM_STEP_1> \
   --serving-arg=--max-model-len \
   --serving-arg=4096 \
+  --serving-arg=--no-enable-prefix-caching \
   --hardware-json hw.json
 ```
 

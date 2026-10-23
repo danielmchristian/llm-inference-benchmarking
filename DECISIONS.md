@@ -197,6 +197,26 @@ new entry that supersedes the old one.
 - **Rejected for now:** Vast.ai (often cheaper, less consistent; the fallback
   if RunPod pricing or availability turns bad).
 
+## 0016 — Phase-1 baseline: prefix caching off, dtype recorded as bf16
+
+- **Date:** 2026-10-23 · **Status:** accepted (amends the Phase-1 runbook)
+- **Decision:** Baseline vLLM runs add `--no-enable-prefix-caching` to the
+  serving flags, and the manifest's quantization label is `bf16`.
+- **Rationale:** (a) vLLM ≥ 0.32 enables automatic prefix caching by default.
+  The chat-short workload cycles a 72-prompt corpus across 256 requests, so
+  ~72% of measured requests repeat an earlier prompt verbatim; with caching on,
+  their TTFT measures cache lookup instead of prefill, and the cache persists
+  across reps — rep 1 warms it for reps 2 and 3, understating cross-rep
+  variance. Caught by reading the engine-config log line before the first
+  measured run. (b) vLLM's `dtype auto` loads Llama 3.1 in `torch.bfloat16`;
+  recording "fp16" would put a falsehood in the fingerprint. The label records
+  what ran.
+- **Rejected:** Keeping the engine-default cache for out-of-the-box purity —
+  the workload's artificial prompt repetition makes the default actively
+  misleading; real chat traffic does not repeat whole prompts verbatim at that
+  rate. Revisit when a workload with controlled shared prefixes lands (that
+  benchmark would measure the cache on purpose).
+
 ---
 
 ## Open questions
