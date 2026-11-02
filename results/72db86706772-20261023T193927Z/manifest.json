@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-23T19:39:27.993491+00:00",
+  "model": {
+    "id": "meta-llama/Llama-3.1-8B-Instruct",
+    "revision": "0e9e39f249a16976918f6564b8830bc894c89659"
+  },
+  "engine": {
+    "name": "vllm",
+    "version": "0.32.0",
+    "image": "vllm/vllm-openai:v0.32.0",
+    "image_digest": "sha256:befccf0e7e4089aa23926bb6f887a85c0d46c2a99e6de5c5ffdf5cb7957c5b34",
+    "serving_args": [
+      "--max-model-len",
+      "4096",
+      "--no-enable-prefix-caching"
+    ]
+  },
+  "quantization": "bf16",
+  "hardware": {
+    "gpu_name": "NVIDIA GeForce RTX 4090",
+    "gpu_count": 1,
+    "driver_version": "595.91.07",
+    "cuda_version": "13.2",
+    "vram_mib": 24564
+  },
+  "workload": {
+    "name": "chat-short",
+    "description": "Short single-turn chat questions; output length is FIXED at max_output_tokens via ignore_eos (vLLM extension) so perf runs are comparable across configs.",
+    "prompt_source": "chat_prompts.txt",
+    "max_output_tokens": 128,
+    "temperature": 0.0,
+    "ignore_eos": true,
+    "seed": 1337,
+    "prompt_source_sha256": "ba0d897422d6dc47b9ed6adecc3509b55de4ec83477a4bb1b0cb19a89d5ddb69"
+  },
+  "loadgen": {
+    "harness_version": "0.1.0",
+    "concurrency": 8,
+    "num_requests": 256,
+    "warmup_requests": 16,
+    "repeats": 3,
+    "timeout_s": 120.0
+  },
+  "notes": null,
+  "fingerprint": "72db86706772f0a2ed6df39e4848e3b0e643988a6f904aa06c12e1f8fd38333d"
+}

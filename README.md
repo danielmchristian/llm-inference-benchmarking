@@ -17,14 +17,16 @@ different.
 
 ## Status
 
-**Pre-alpha — Phase 1.** The harness is built and calibration-tested against
-a stub server with known timing; the first real vLLM run is next. No benchmark
-numbers exist yet; this table links to results as each phase lands.
+**Pre-alpha — Phase 1 complete.** The harness is calibration-tested against a
+stub server with known timing, and the first real baseline is measured and
+published: Llama-3.1-8B-Instruct (bf16) under vLLM 0.32.0 on an RTX 4090 —
+see **[RESULTS.md](RESULTS.md)**. This table links to results as each phase
+lands.
 
 | Phase | Scope | Status |
 |------:|-------|--------|
 | 0 | Repo scaffolding, CI, decision log | done |
-| 1 | Load generator + manifest fingerprinting; vLLM FP16 baseline, one workload | harness done; GPU run pending |
+| 1 | Load generator + manifest fingerprinting; vLLM bf16 baseline, one workload | done — [results](RESULTS.md) |
 | 2 | Engine comparison: vLLM vs SGLang vs a third engine, same model and hardware | planned |
 | 3 | Quantization: FP16 vs FP8 vs AWQ vs GPTQ — throughput, latency, memory | planned |
 | 4 | Quality regression: performance gains vs answer-quality cost | planned |

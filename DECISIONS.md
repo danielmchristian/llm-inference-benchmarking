@@ -223,8 +223,10 @@ new entry that supersedes the old one.
 
 - **Third engine for Phase 2:** TGI vs TensorRT-LLM vs llama.cpp-server.
   Decide when Phase 2 starts, based on what runs credibly on a single 4090.
-- **Committing curated results JSONL:** leaning yes (it is the reproducibility
-  artifact); confirm once real file sizes are known.
+- **Committing curated results JSONL:** resolved yes (2026-11-02) — the
+  Phase-1 bundle is 2.7 MB including raw per-request JSONL, GPU log, and
+  server log; committed under `results/`. Revisit (gzip or LFS) only if a
+  future phase's bundle is an order of magnitude larger.
 - **GitHub repo name and visibility timing:** "llm-bench" likely collides with
   existing projects on GitHub/PyPI — check before pushing; the push itself is
   deferred until the user is ready.

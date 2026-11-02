@@ -1,0 +1,18 @@
+fingerprint: 72db86706772f0a2ed6df39e4848e3b0e643988a6f904aa06c12e1f8fd38333d
+run dir: /root/runs/72db86706772-20261023T193927Z
+rep 1: ok=256 failed=0 error_rate=0.000 ttft_p50=0.06121s e2e_p50=2.243s out_tok/s=456.1 req/s=3.563 window=71.85s
+rep 2: ok=256 failed=0 error_rate=0.000 ttft_p50=0.07944s e2e_p50=2.253s out_tok/s=453.8 req/s=3.545 window=72.21s
+rep 3: ok=256 failed=0 error_rate=0.000 ttft_p50=0.05753s e2e_p50=2.221s out_tok/s=459.1 req/s=3.587 window=71.38s
+
+cross-rep summary (3 reps)
+metric                  mean        std      min      max  n_reps
+ttft_p50_s           0.06606   0.009578  0.05753  0.07944       3
+ttft_p90_s           0.08298    0.01341  0.06402  0.09255       3
+ttft_p99_s            0.1035    0.01556  0.08611   0.1239       3
+e2e_p50_s              2.239    0.01312    2.221    2.253       3
+e2e_p99_s               2.28     0.0163    2.262    2.301       3
+tpot_p50_s           0.01709  4.149e-05  0.01705  0.01714       3
+itl_p50_s            0.01703  2.629e-05    0.017  0.01706       3
+output_tokens_per_s    456.3      2.156    453.8    459.1       3
+requests_per_s         3.565    0.01685    3.545    3.587       3
+error_rate                 0          0        0        0       3
