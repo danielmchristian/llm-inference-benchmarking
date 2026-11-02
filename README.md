@@ -1,6 +1,6 @@
 # llm-bench
 
-<!-- CI badge: add after the repo is pushed to GitHub -->
+[![CI](https://github.com/danielmchristian/llm-inference-benchmarking/actions/workflows/ci.yml/badge.svg)](https://github.com/danielmchristian/llm-inference-benchmarking/actions/workflows/ci.yml)
 
 Benchmark LLM serving engines across quantization formats and batching
 configurations — and measure what those optimizations do to answer quality.
@@ -14,6 +14,39 @@ published; serving engines are pinned by Docker image digest; and the
 harness's own dependencies are locked (`uv.lock`, enforced in CI). Two runs
 with the same fingerprint are directly comparable — anything else is visibly
 different.
+
+## Headline result so far
+
+Llama-3.1-8B-Instruct (bf16) under vLLM 0.32.0 on one RTX 4090, 8 concurrent
+streams, 768 requests, zero errors:
+
+| TTFT p50 | Inter-token latency p50 | Aggregate throughput |
+|:---:|:---:|:---:|
+| **66 ms** ± 9.6 | **17.03 ms** ± 0.03 | **456 tok/s** ± 2.2 |
+
+(mean ± std over 3 repetitions; full table, plot, and caveats in
+[RESULTS.md](RESULTS.md))
+
+Don't take the table's word for it — the raw per-request data is committed,
+and two commands recompute every published number from it:
+
+```sh
+uv sync --locked
+uv run llm-bench analyze results/72db86706772-20261023T193927Z
+```
+
+## Reading guide
+
+- **[RESULTS.md](RESULTS.md)** — the numbers, with consistency checks and
+  caveats stated up front.
+- **[DECISIONS.md](DECISIONS.md)** — every methodology choice as an ADR-style
+  entry: what was decided, why, and what was rejected.
+- **[docs/metrics.md](docs/metrics.md)** — what TTFT/ITL/TPOT mean here and
+  exactly how they are measured (including the streaming chunk-vs-token
+  caveat).
+- **[docs/phase1-runbook.md](docs/phase1-runbook.md)** — the exact GPU
+  procedure behind the published run, from digest-pinned image to termination
+  checklist.
 
 ## Status
 
