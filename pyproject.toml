@@ -37,6 +37,9 @@ packages = ["src/llmbench"]
 
 [tool.ruff]
 line-length = 100
+# Personal practice scratchpad living inside the repo checkout; not project
+# code, so lint/format must not police it (it is also gitignored).
+extend-exclude = ["python-playground"]
 
 [tool.ruff.lint]
 select = [

@@ -20,3 +20,6 @@ htmlcov/
 #   /runs/    -> raw per-run output (large, machine-specific): ignored
 #   /results/ -> curated JSONL + manifests (reproducibility artifact): committed
 /runs/
+
+# Personal practice scratchpad (not project code; see pyproject ruff exclude).
+/python-playground/
